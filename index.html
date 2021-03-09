@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Puzzle</title>
+	<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+	<script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+</head>
+
+<body>
+	<a-scene light="defaultLightsEnabled: false">
+		<!-- <a-sky color="#111"></a-sky> -->
+
+		<a-assets>
+
+			<a-asset-item id="pyramid-obj" src="assets/pyramid/pyramid.obj"></a-asset-item>
+			<a-asset-item id="pyramid-mtl" src="assets/pyramid/pyramid.mtl"></a-asset-item>
+
+			<!-- Goat https://open3dmodel.com/3d-models/goat-animal_6938.html -->
+			<a-asset-item id="goat-obj" src="assets/goat/goat.obj"></a-asset-item>
+			<a-asset-item id="goat-mtl" src="assets/goat/goat.mtl"></a-asset-item>
+
+			<!-- Sword "Minecraft Diamond-Sword" (https://skfb.ly/6znCO) by Blender3D is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/). -->
+			<a-asset-item id="sword-obj" src="assets/sword/sword.obj"></a-asset-item>
+			<a-asset-item id="sword-mtl" src="assets/sword/sword.mtl"></a-asset-item>
+
+		</a-assets>
+
+		<!-- Camera -->
+		<a-camera>
+			<a-entity cursor="fuse: true; fuseTimeout: 1000"
+				position="0 0 -0.1"
+				geometry="primitive: ring; radius-inner: 0.0005; radius-outer: 0.0008"
+				material="color: black; shader: flat"
+				raycaster="objects: .clickable"
+
+				animation__enter="property: scale; to: 3 3 3;
+				dur: 1000; easing:linear; startEvents: mouseenter"
+
+				animation__exit="property: scale; to: 1 1 1;
+				dur: 1000; easing:linear; startEvents: mouseleave">
+			</a-entity>
+		</a-camera>
+
+		<a-box width="2000" depth="2000" height="1" position="0 -1 0" color="#292"></a-box>
+		<a-entity light="type: directional; intensity: 1.5;" position="1.5 3 2"></a-entity>
+		<a-entity light="type: directional; intensity: 0.6;" position="-1.5 -3 -2"></a-entity>
+
+		<a-entity position=" 0 0 -48">
+
+			<a-sky color="#ACE"></a-sky>
+			<a-entity obj-model="obj: #pyramid-obj; mtl: #pyramid-mtl;" rotation="0 -90 0"></a-entity>
+
+			<a-text value="To unlock the gate, press the button behind the pyramid."
+				anchor="center" position="0 1 42"></a-text>
+			<a-box id="gate" width="14" height="12" depth="1" position="0 6 24" color="gray"></a-box>
+
+			<a-entity position="0 0 -40">
+				<a-box class="clickable" color="red"
+					event-set__click-self="_event: click; position: 0 -0.4 0"
+					event-set__click-gate="_event: click; _target: #gate; position: 0 -5.5 24"></a-box>
+			</a-entity>
+
+			<a-text value="When was The Great Pyramid of Giza built? Use Google!"
+				width="12" anchor="center" position="0 1 15">
+			</a-text>
+
+			<a-entity position="0 0 -7">
+				<a-entity position="-11 0 0">
+					<a-box id="gate0" width="10" height="20" position="0 10 0" color="#AAB"></a-box>
+					<a-box class="clickable" color="red" position="0 0 2"
+						event-set__click-self="_event: click; position: 0 -0.4 2"
+						event-set__click-gate="_event: click; _target: #gate0; position: 0 -9.5 0"></a-box>
+
+					<a-text value="1470 BCE" position="-0.5 1 5" width="12"></a-text>
+					<a-text value="You lost!" position="0 1 -4" width="12"></a-text>
+					<a-entity obj-model="obj: #goat-obj; mtl: #goat-mtl;" position="0 0 -8"></a-entity>
+				</a-entity>
+
+				<a-entity position="0 0 0">
+					<a-box id="gate1" width="12" height="20" position="0 10 0" color="#AAB"></a-box>
+					<a-box class="clickable" color="red" position="0 0 2"
+						event-set__click-self="_event: click; position: 0 -0.4 2"
+						event-set__click-gate="_event: click; _target: #gate1; position: 0 -9.5 0"></a-box>
+
+					<a-text value="3240 BCE" position="-0.5 1 5" width="12"></a-text>
+					<a-text value="You lost!" position="0 1 -4" width="12"></a-text>
+					<a-entity obj-model="obj: #goat-obj; mtl: #goat-mtl;" position="0 0 -8"></a-entity>
+				</a-entity>
+
+				<a-entity position="11 0 0">
+					<a-box id="gate2" width="10" height="20" position="0 10 0" color="#AAB"></a-box>
+					<a-box class="clickable" color="red" position="0 0 2"
+						event-set__click-self="_event: click; position: 0 -0.4 2"
+						event-set__click-gate="_event: click; _target: #gate2; position: 0 -9.5 0"></a-box>
+
+					<a-text value="2560 BCE" position="-0.5 1 5" width="12"></a-text>
+					<!-- <a-text value="You won!" position="0 1 -4" width="12"></a-text>
+					<a-entity obj-model="obj: #sword-obj; mtl: #sword-mtl;" position="0 0 -8" scale="0.1 0.1 0.1">
+					</a-entity> -->
+					<a-text value="You lost!" position="0 1 -4" width="12"></a-text>
+					<a-entity obj-model="obj: #goat-obj; mtl: #goat-mtl;" position="0 0 -8"></a-entity>
+				</a-entity>
+
+			</a-entity>
+
+		</a-entity>
+
+	</a-scene>
+</body>
+
+</html>
